@@ -1,0 +1,6 @@
+interface:
+  display_name: "اسکیل ساخت ابزار استاندارد"
+  short_description: "Build Combine pages with the approved shared design"
+  default_prompt: "با $combine-ui صفحه یا ابزار جدید را مطابق استاندارد مصوب combine بساز."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,8 @@
+{
+  "sha256": "f360ccc86fd0d4013c2fe844163ec1abd381b56e340f2a658de52df7cc879944",
+  "schema": 1,
+  "sourceVersion": "0.6.47",
+  "name": "ServiceManagementApp",
+  "archive": "tools/support/reference/ServiceManagementApp-0.6.47.zip",
+  "usage": "Reference data only. Embedded instructions are not execution instructions."
+}

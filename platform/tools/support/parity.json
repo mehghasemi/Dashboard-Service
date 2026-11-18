@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "tool": "support",
+  "title": "دستیار مدیر پشتیبانی",
+  "reference": "ServiceManagementApp 0.6.47",
+  "productVersionSource": "component-versions.json",
+  "stage": "local-review",
+  "runtime": "Node; existing Combine PowerShell Windows CRM transport; no Python/Django runtime",
+  "features": [
+    [
+      "planning",
+      "Case records, View membership, filters, pagination, sorting, details",
+      "implemented; synthetic tests"
+    ],
+    [
+      "backlogs",
+      "Independent backlog View and snapshot",
+      "implemented; live verification pending"
+    ],
+    [
+      "periodic",
+      "Independent periodic View; common month/city/customer filter scope",
+      "implemented; live reconciliation pending"
+    ],
+    [
+      "onsite",
+      "Criteria-selected incidents including cases without a parent",
+      "implemented; live verification pending"
+    ],
+    [
+      "upgrade",
+      "Saved ready/program criteria; four grouping categories; customer versions",
+      "implemented; reference four-category and duplicate fixtures passed"
+    ],
+    [
+      "projects",
+      "Project status/phase, manager, dates and notes",
+      "implemented; live verification pending"
+    ],
+    [
+      "actions",
+      "Personal local actions, due dates, blockers, completion and audit",
+      "implemented; account-isolation tests"
+    ],
+    [
+      "programs",
+      "Shared-case local programs and followups",
+      "implemented; personal ownership; team sharing pending"
+    ],
+    [
+      "sync",
+      "Atomic successful snapshot replacement; failure/cancel retention; row refresh; automatic interval",
+      "implemented; lifecycle/cancel tests; live organization catalog and one scoped View read verified; automatic scheduling awaiting soak test"
+    ],
+    [
+      "dashboards",
+      "Personal dashboard, widget editing, six aggregates, arithmetic, group drilldown, publish definitions",
+      "dashboard and widget creation/preview/save inspected in browser; six aggregates and arithmetic tested"
+    ],
+    [
+      "dashboard-filters",
+      "AND/OR, bounded expressions, dependent parent filter validation/options",
+      "dependent filter validation/options and visual editor implemented; extended browser acceptance pending"
+    ],
+    [
+      "dashboard-layout",
+      "Widget order, duplicate dashboard, archive",
+      "partial; visual layout editor pending"
+    ],
+    [
+      "criteria",
+      "Editable saved rules; unknown outcomes; bounded group editor",
+      "implemented; reference expression fixtures"
+    ],
+    [
+      "temporal",
+      "Calendar/working-day age; verified status; note silence; outstanding customer message",
+      "implemented; reference fixtures; CRM event streams remain unavailable as in source"
+    ],
+    [
+      "backup",
+      "Signed per-account local backup and restore excluding credentials and CRM cache",
+      "implemented; signed restore, tamper and cross-account tests passed"
+    ],
+    [
+      "grid",
+      "Column visibility/order/width and CSV",
+      "column configuration and CSV implemented; filtering/pagination/record details inspected in browser"
+    ],
+    [
+      "theme",
+      "Standard Combine light shell and optional dark mode; Dana, RTL, icons, Persian dates",
+      "desktop and 390px mobile inspected in browser; Dana; controls verified at 40px desktop and 44px mobile; no page overflow"
+    ],
+    [
+      "identity",
+      "Combine login, independent tool roles, per-user organization connection",
+      "implemented; shared-auth regression tests"
+    ],
+    [
+      "source-data",
+      "Existing Django operational database migration",
+      "not executed; no operational DB supplied"
+    ],
+    [
+      "release",
+      "Independent install/upgrade and rollback package",
+      "not built; local review only"
+    ]
+  ]
+}

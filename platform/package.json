@@ -1,0 +1,24 @@
+{
+  "name": "combine-support-development",
+  "version": "1.8.162",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node support-standalone.mjs",
+    "test": "node --test support-engine.test.mjs support-http.test.mjs support-crm-links.test.mjs support-standalone.test.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "ical.js": "2.2.1",
+    "fast-xml-parser": "5.11.2",
+    "@nodable/entities": "3.1.0",
+    "fast-xml-builder": "1.3.1",
+    "path-expression-matcher": "1.6.2",
+    "xml-naming": "0.3.0",
+    "is-unsafe": "2.0.2",
+    "strnum": "2.5.1",
+    "anynum": "1.0.1"
+  }
+}

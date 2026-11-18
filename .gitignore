@@ -1,0 +1,9 @@
+platform/node_modules/
+platform/tools/support/reference/
+**/releases/
+*.log
+.crm-profile.json
+user-data/
+*.protected.json
+launch.json
+running.lock
