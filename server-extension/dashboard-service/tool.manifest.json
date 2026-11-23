@@ -1,7 +1,7 @@
 {
   "schema": "combine.extension/1",
   "id": "dashboard-service",
-  "title": "دستیار مدیر پشتیبانی",
+  "title": "داشبورد خدمات",
   "description": "مدیریت کیس‌ها، بکلاگ‌ها، پروژه‌ها و گزارش‌های خدمات",
   "entry": "server.mjs",
   "page": "index.html",

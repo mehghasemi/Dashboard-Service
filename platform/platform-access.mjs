@@ -11,7 +11,7 @@ toolDefinitions.push({id:'marketing',title:'سامانه بازاریابی',con
 toolDefinitions.push({id:'presentation',title:'طراحی پرزنت دمو',connected:true,allowedRoles:['none','user'],menus:['ویزارد و ویرایش مرحله‌ای ارائه','مشتریان مرتبط از CRM و محتوای نوشن','اصلاح با Luna medium و نمایش هزینه','خروجی HTML آفلاین']})
 defaultToolRoles.presentation='none'
 defaultToolRoles.support='none'
-toolDefinitions.push({id:'support',title:'دستیار مدیر پشتیبانی',connected:true,allowedRoles:['none','user'],menus:['نمای مدیریتی، کیس‌ها، بکلاگ و پروژه‌ها','بازدید دوره‌ای، مراجعه حضوری و ارتقا','اقدام‌ها و پیگیری‌ها، داشبوردساز و معیارساز','اتصال یکپارچه حساب سازمانی CRM فقط‌خواندنی']})
+toolDefinitions.push({id:'support',title:'داشبورد خدمات',connected:true,allowedRoles:['none','user'],menus:['نمای مدیریتی، کیس‌ها، بکلاگ و پروژه‌ها','بازدید دوره‌ای، مراجعه حضوری و ارتقا','اقدام‌ها و پیگیری‌ها، داشبوردساز و معیارساز','اتصال یکپارچه حساب سازمانی CRM فقط‌خواندنی']})
 function validateBeforeMarketing(roles){
  if(!roles||typeof roles!=='object'||Array.isArray(roles)||Object.keys(roles).some(id=>!toolDefinitions.some(t=>t.id===id))||toolDefinitions.filter(t=>t.id!=='marketing').some(t=>!(t.allowedRoles||['none','user','admin']).includes(roles[t.id]??(['tariff','reports','contracts','coordination','presentation','support'].includes(t.id)?'none':undefined))))throw Object.assign(new Error('دسترسی ابزارها معتبر نیست؛ ابزار تعرفه فقط نقش کاربر یا بدون دسترسی دارد.'),{status:400});
  return {...roles,support:roles.support??'none',tariff:roles.tariff??'none',reports:roles.reports??'none',contracts:roles.contracts??'none',coordination:roles.coordination??'none',presentation:roles.presentation??'none'}

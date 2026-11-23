@@ -18,7 +18,7 @@ import {componentVersion} from './component-status.mjs'
 const failure=(message,status=400)=>Object.assign(Error(message),{status})
 const same=(a,b)=>typeof a==='string'&&typeof b==='string'&&/^[a-f0-9]{64}$/.test(a)&&a.length===b.length&&timingSafeEqual(Buffer.from(a),Buffer.from(b))
 export async function createStandaloneStore({directory,codec=dpapi,identity=windowsSid}){
- const owner=await identity(),file=path.join(directory,'account.protected.json'),scope=createHash('sha256').update('combine-support-standalone:'+owner+':'+path.resolve(directory)).digest('hex');let queue=Promise.resolve(),cachedAccount=null
+ const owner=await identity(),file=path.join(directory,'account.protected.json'),scope=createHash('sha256').update('combine-dashboard-service-standalone:'+owner+':'+path.resolve(directory)).digest('hex');let queue=Promise.resolve(),cachedAccount=null
  async function read(){try{const raw=await fs.readFile(file,'utf8');if(cachedAccount?.raw===raw)return structuredClone(cachedAccount.value);const box=JSON.parse(raw),v=JSON.parse(await codec(box.encrypted,true));if(v.schema!==1||v.owner!==owner||!v.id||!v.launchSecret)throw Error('Binding');cachedAccount={raw,value:structuredClone(v)};return v}catch(e){if(e.code==='ENOENT')return null;throw failure('تنظیمات امن قابل خواندن نیست؛ فایل قبلی حفظ شد.',503)}}
  async function save(v){await fs.mkdir(directory,{recursive:true});const temp=file+'.'+randomUUID()+'.tmp';try{await fs.writeFile(temp,JSON.stringify({schema:1,encrypted:await codec(JSON.stringify(v))}),{mode:0o600});await fs.rename(temp,file)}finally{await fs.unlink(temp).catch(()=>{})}}
  if(!await read())await save({schema:1,owner,id:randomUUID(),name:process.env.USERNAME||'کاربر محلی',launchSecret:randomBytes(32).toString('hex'),organization:null,revision:1})
@@ -44,15 +44,15 @@ export async function startSupportStandalone({root=path.dirname(fileURLToPath(im
  const server=makeServer(async(req,res)=>{try{
   if(req.headers.host!==authority||req.headers.origin&&req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')throw failure('مبدأ درخواست مجاز نیست.',403)
   const url=new URL(req.url,origin)
-  if(req.method==='GET'&&url.pathname==='/api/health'){send(res,200,{ok:true,app:'combine-support-standalone',version,appRootId:rootId});return}
-  if(req.method==='GET'&&url.pathname==='/launch'&&same(url.searchParams.get('token'),await store.launchSecret())){const session=randomBytes(32).toString('hex');sessions.set(session,Date.now()+8*3600000);const user=(await store.list())[0];res.writeHead(302,{'Set-Cookie':`${cookie}=${session}; HttpOnly; SameSite=Strict;${lan?' Secure;':''} Path=/; Max-Age=28800`,Location:user.organization&&!user.organization.disabled?'/support/':'/support/#settings','Referrer-Policy':'no-referrer'});res.end();return}
-  if(req.method==='GET'&&url.pathname==='/login.html'){send(res,200,'<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>ورود به دستیار مدیر پشتیبانی</title><body><h1>دستیار مدیر پشتیبانی</h1><p>برای ورود امن محلی، فایل Start.cmd یا میان‌بر برنامه را اجرا کنید.</p><p>اطلاعات CRM پس از ورود، داخل تنظیمات ابزار وارد می‌شود.</p></body></html>','text/html; charset=utf-8');return}
+  if(req.method==='GET'&&url.pathname==='/api/health'){send(res,200,{ok:true,app:'combine-dashboard-service-standalone',version,appRootId:rootId});return}
+  if(req.method==='GET'&&url.pathname==='/launch'&&same(url.searchParams.get('token'),await store.launchSecret())){const session=randomBytes(32).toString('hex');sessions.set(session,Date.now()+8*3600000);const user=(await store.list())[0];res.writeHead(302,{'Set-Cookie':`${cookie}=${session}; HttpOnly; SameSite=Strict;${lan?' Secure;':''} Path=/; Max-Age=28800`,Location:user.organization&&!user.organization.disabled?'/dashboard-service/':'/dashboard-service/#settings','Referrer-Policy':'no-referrer'});res.end();return}
+  if(req.method==='GET'&&url.pathname==='/login.html'){send(res,200,'<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>ورود به داشبورد خدمات</title><body><h1>داشبورد خدمات</h1><p>برای ورود امن محلی، فایل Start.cmd یا میان‌بر برنامه را اجرا کنید.</p><p>اطلاعات CRM پس از ورود، داخل تنظیمات ابزار وارد می‌شود.</p></body></html>','text/html; charset=utf-8');return}
   const token=String(req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith(cookie+'='))?.slice(cookie.length+1),expiry=sessions.get(token)
-  if(!expiry||expiry<Date.now()){if(req.method==='GET'&&['/','/support','/support/','/home.html'].includes(url.pathname)){res.writeHead(302,{Location:'/login.html'});res.end();return}throw failure('برنامه را از Start.cmd باز کنید.',401)}
+  if(!expiry||expiry<Date.now()){if(req.method==='GET'&&['/','/dashboard-service','/dashboard-service/','/home.html'].includes(url.pathname)){res.writeHead(302,{Location:'/login.html'});res.end();return}throw failure('برنامه را از Start.cmd باز کنید.',401)}
   if(!['GET','HEAD'].includes(req.method)&&(req.headers.origin!==origin||!String(req.headers['content-type']||'').startsWith('application/json')))throw failure('درخواست باید از همین برنامه و به‌صورت JSON ارسال شود.',403)
   const user=(await store.list())[0]
   if(req.method==='POST'&&url.pathname==='/api/auth/logout'){sessions.clear();res.setHeader('Set-Cookie',`${cookie}=; HttpOnly; SameSite=Strict;${lan?' Secure;':''} Path=/; Max-Age=0`);send(res,200,{ok:true});return}
-  if(req.method==='GET'&&['/','/home.html'].includes(url.pathname)){res.writeHead(302,{Location:'/support/'});res.end();return}
+  if(req.method==='GET'&&['/','/home.html'].includes(url.pathname)){res.writeHead(302,{Location:'/dashboard-service/'});res.end();return}
   if(await organization.handle(req,res,url,user))return
   if(await support.handle(req,res,url,user))return
   const relative=decodeURIComponent(url.pathname).replace(/^\//,'');if(req.method!=='GET'||!publicAssets.has(relative))throw failure('مسیر پیدا نشد.',404)

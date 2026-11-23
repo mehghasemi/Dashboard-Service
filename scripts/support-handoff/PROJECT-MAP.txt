@@ -1,4 +1,4 @@
-# نقشه پروژه تحویل دستیار مدیر پشتیبانی
+# نقشه پروژه تحویل داشبورد خدمات
 
 این پروژه فقط ابزار support و وابستگی‌های بازبینی‌شده آن را برای Windows نگه می‌دارد. شروع: AGENTS.md، سپس .agents/skills/combine-ui/SKILL.md و design-system/STANDARD.md.
 

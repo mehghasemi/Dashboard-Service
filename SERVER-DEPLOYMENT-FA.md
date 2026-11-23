@@ -1,4 +1,4 @@
-# تحویل سرور دستیار مدیر پشتیبانی
+# تحویل سرور داشبورد خدمات
 
 کد `server-extension/dashboard-service` انتقال نسخهٔ محلی ابزار پشتیبانی به افزونهٔ Combine است. شناسهٔ افزونه در سرور `dashboard-service` است؛ مسیر رابط `/dashboard-service/` و مسیر API `/api/dashboard-service/` خواهد بود. ورود، نقش ابزار و حساب سازمانی CRM از سرور Combine گرفته می‌شوند. عملیات CRM این ابزار فقط‌خواندنی است.
 

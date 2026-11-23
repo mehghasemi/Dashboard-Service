@@ -1,4 +1,4 @@
-دستیار مدیر پشتیبانی — بسته مستقل تحویل به توسعه‌دهنده — نسخه 0.0.0
+داشبورد خدمات — بسته مستقل تحویل به توسعه‌دهنده — نسخه 0.0.0
 
 این بسته برای نصب و توسعه محلی روی Windows x64 است. ظاهر و موتور ابزار همان کد فعلی combine است؛ میزبان مستقل فقط جای ورود مشترک combine را در رایانه توسعه‌دهنده می‌گیرد. این میزبان وارد انتشار اصلی combine نمی‌شود.
 
@@ -8,7 +8,7 @@
 نصب:
 ۱) ZIP را کامل Extract کنید؛ از داخل پنجره ZIP اجرا نکنید.
 ۲) Install.cmd را اجرا کنید. نصب در پوشه کاربر انجام می‌شود و دسترسی Administrator لازم ندارد. پوشه موجود بازنویسی نمی‌شود.
-۳) میان‌بر Combine Support یا Start.cmd داخل محل نصب را اجرا کنید.
+۳) میان‌بر Dashboard Service یا Start.cmd داخل محل نصب را اجرا کنید.
 ۴) مرورگر به اجرای محلی امن باز می‌شود. در اولین اجرا، «منابع و تنظیمات» و فرم حساب سازمانی باز است؛ نام کاربری و رمز CRM متعلق به خودتان را وارد کنید. در صورت نیاز از DOMAIN\username استفاده کنید.
 ۵) پس از تأیید هویت CRM، فهرست Viewهای مجاز خودکار می‌آید. View هر بخش را انتخاب و ذخیره کنید، سپس دریافت اطلاعات را بزنید.
 
@@ -18,7 +18,7 @@ Node به همراه مجوز و وابستگی‌های لازم داخل بس�
 کد قابل ویرایش: project\platform
 اسکیل طراحی: project\.agents\skills\combine-ui\SKILL.md
 استاندارد مصوب: project\design-system\STANDARD.md
-داده، اعتبارنامه رمزگذاری‌شده، نشست و لاگ: %LOCALAPPDATA%\CombineSupport\user-data
+داده، اعتبارنامه رمزگذاری‌شده، نشست و لاگ: %LOCALAPPDATA%\DashboardService\user-data
 داده خصوصی خارج از پوشه نصب است و توسط Build-Return جمع‌آوری نمی‌شود. حفاظت اعتبارنامه با Windows DPAPI و متصل به حساب ویندوز فعلی است؛ فایل امن را برای شخص دیگر نفرستید. بسته هیچ اعتبارنامه، دیتابیس، داده مشتری یا تنظیمات شخصی مالک قبلی ندارد.
 
 برای هر فرد، ورود محلی از Start.cmd انجام می‌شود؛ نشست محلی از یک پیوند یک‌بارراه‌اندازی گرفته می‌شود. این نسخه فقط روی 127.0.0.1 گوش می‌دهد و برای انتشار مستقیم در LAN نیست. تغییر رمز حساب combine در میزبان مستقل نمایش داده نمی‌شود؛ در combine اصلی همان ورود و مدیریت حساب مشترک حفظ می‌شود.
@@ -30,7 +30,7 @@ Node به همراه مجوز و وابستگی‌های لازم داخل بس�
 
 بازگرداندن به مالک:
 DEVELOPER-PROMPT.txt را همراه فهرست تغییرات به GPT بدهید. نتیجه باید شامل کد، گزارش تغییرات و آزمون‌ها باشد. برای ساخت نسخه تحویلی، شماره نسخه را از مالک بگیرید؛ فقط components.support را در project\platform\component-versions.json به همان عدد تغییر دهید و سپس:
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Build-Return.ps1 -OutputDirectory C:\Handover\Support-NEW-VERSION -Version NEW.VERSION.NUMBER
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Build-Return.ps1 -OutputDirectory C:\Handover\Dashboard-Service-NEW-VERSION -Version NEW.VERSION.NUMBER
 خروجی ZIP و SHA256 را تحویل دهید؛ پوشه user-data، اطلاعات CRM، لاگ و رمزها را نفرستید.
 
 نصب بعدی روی سرور combine:

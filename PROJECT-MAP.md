@@ -1,6 +1,6 @@
-# نقشه پروژه تحویل دستیار مدیر پشتیبانی
+# نقشه پروژه تحویل داشبورد خدمات
 
-ریشهٔ محلی پروژه `D:\MyData\MyApp-AI\CodexAPP\Dashboard-Servcie` است. سورس افزونهٔ سرور در `server-extension/dashboard-service/` و بسته‌های تحویل محلی در `artifacts/` نگهداری می‌شوند. مسیر `artifacts/` در Git ثبت نمی‌شود. راهنمای نسخهٔ سرور: `SERVER-DEPLOYMENT-FA.md`.
+ریشهٔ محلی پروژه `D:\MyData\MyApp-AI\CodexAPP\Dashboard-Service` است. سورس افزونهٔ سرور در `server-extension/dashboard-service/` و بسته‌های تحویل محلی در `artifacts/` نگهداری می‌شوند. مسیر `artifacts/` در Git ثبت نمی‌شود. راهنمای نسخهٔ سرور: `SERVER-DEPLOYMENT-FA.md`.
 
 این پروژه فقط ابزار support و وابستگی‌های بازبینی‌شده آن را برای Windows نگه می‌دارد. شروع: AGENTS.md، سپس .agents/skills/combine-ui/SKILL.md و design-system/STANDARD.md.
 

@@ -3,6 +3,6 @@
   "coreVersion": "1.8.162",
   "coreApi": 1,
   "components": {
-    "support": "0.0.1"
+    "support": "0.1.0"
   }
 }

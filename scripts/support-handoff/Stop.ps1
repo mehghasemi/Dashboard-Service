@@ -1,4 +1,4 @@
-param([string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'CombineSupport\user-data'))
+param([string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'DashboardService\user-data'))
 $ErrorActionPreference='Stop'
 $file=Join-Path ([IO.Path]::GetFullPath($DataDirectory)) 'launch.json';if(!(Test-Path -LiteralPath $file)){Write-Output 'Not running.';exit}
 $state=Get-Content -LiteralPath $file -Raw|ConvertFrom-Json;$process=Get-CimInstance Win32_Process -Filter ('ProcessId='+$state.pid)

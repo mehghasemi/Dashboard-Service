@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "tool": "support",
-  "title": "دستیار مدیر پشتیبانی",
+  "title": "داشبورد خدمات",
   "reference": "ServiceManagementApp 0.6.47",
   "productVersionSource": "component-versions.json",
   "stage": "local-review",

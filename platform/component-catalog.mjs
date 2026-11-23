@@ -16,7 +16,7 @@ componentTitles.contracts='مقایسه‌گر قرارداد'
 publicFiles.contracts=['contracts.html','contracts.css','contracts-refresh.css','contracts-diff.mjs','contracts-state.mjs','contracts-ui.mjs','contracts-icon.svg']
 componentTitles.marketing='سامانه بازاریابی'
 publicFiles.marketing=['marketing.html','marketing-shell.mjs','marketing-shell.css']
-componentTitles.support='دستیار مدیر پشتیبانی'
+componentTitles.support='داشبورد خدمات'
 publicFiles.support=['support-crm-links.mjs','support-account.mjs','support.html','support.css','support-ui.mjs','support-icon.svg']
 export function componentOwner(file){
  if(/^support-[a-z-]+\.(mjs|json)$/.test(file)||file.startsWith('tools/support/'))return 'support'
