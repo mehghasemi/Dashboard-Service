@@ -1,0 +1,26 @@
+{
+  "schema": "combine.extension/1",
+  "id": "dashboard-service",
+  "title": "دستیار مدیر پشتیبانی",
+  "description": "مدیریت کیس‌ها، بکلاگ‌ها، پروژه‌ها و گزارش‌های خدمات",
+  "entry": "server.mjs",
+  "page": "index.html",
+  "icon": "icon.svg",
+  "crm": "organization-read",
+  "assets": [
+    "index.html",
+    "support-ui.mjs",
+    "support-account.mjs",
+    "support-crm-links.mjs",
+    "support.css",
+    "support-icon.svg",
+    "support-shell.js",
+    "header-menus.mjs",
+    "change-password.mjs",
+    "password-fields.mjs",
+    "logout.mjs",
+    "persian-date-picker.mjs",
+    "workspace-summary.mjs",
+    "shared/"
+  ]
+}
