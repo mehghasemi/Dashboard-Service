@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<meta charset="utf-8">
+<title>CRM record links</title>
+<style>
+body{font:16px sans-serif;padding:2rem}
+.actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.actions a{display:inline-block;border:1px solid #cdd6ec;border-radius:12px;padding:.75rem 1rem;color:#203781;text-decoration:none}
+.actions a:hover,.actions a:focus-visible{background:#eef2ff}
+</style>
+<h1>جزئیات کیس</h1>
+<div class="actions" id="crm-actions"></div>
+<script type="module">
+import {appendCrmRecordLink} from './crm-record-link.mjs';
+const row={crm_id:'10000000-0000-4000-8000-000000000001',customer_id:'20000000-0000-4000-8000-000000000002',parent_id:'30000000-0000-4000-8000-000000000003'};
+const box=document.querySelector('#crm-actions');
+appendCrmRecordLink(box,'planning',row.crm_id,{label:'بازکردن در CRM'});
+appendCrmRecordLink(box,'customer',row.customer_id,{label:'مشتری در CRM'});
+appendCrmRecordLink(box,'backlogs',row.parent_id,{label:'برنامه مرتبط در CRM'});
+</script>
+</html>
