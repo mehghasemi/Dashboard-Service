@@ -7,3 +7,4 @@ user-data/
 *.protected.json
 launch.json
 running.lock
+artifacts/
