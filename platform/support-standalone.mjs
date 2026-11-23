@@ -25,7 +25,7 @@ export async function createStandaloneStore({directory,codec=dpapi,identity=wind
  const user=v=>({id:v.id,name:v.name,enabled:true,isAdmin:false,revision:v.revision,scope,access:[],toolRoles:{...defaultToolRoles,support:'user'},organization:v.organization})
  return {scope,get:async id=>{const v=await read();return v.id===id?user(v):null},list:async()=>[user(await read())],launchSecret:async()=>(await read()).launchSecret,setOrganization(id,organization,expectedId){const next=queue.catch(()=>{}).then(async()=>{const v=await read();if(v.id!==id)throw failure('حساب مجاز نیست.',403);if((v.organization?.id||null)!==expectedId)throw failure('حساب سازمانی هم‌زمان تغییر کرده است.',409);v.organization=organization;await save(v);return {saved:!organization.disabled}});queue=next;return next}}
 }
-export async function startSupportStandalone({root=path.dirname(fileURLToPath(import.meta.url)),directory=path.join(process.env.LOCALAPPDATA||os.tmpdir(),'CombineSupport','user-data'),port=3049,lan=null,codec=dpapi,identity=windowsSid,validateCrm,identityRead,worker}={}){
+export async function startSupportStandalone({root=path.dirname(fileURLToPath(import.meta.url)),directory=path.join(process.env.LOCALAPPDATA||os.tmpdir(),'DashboardService','user-data'),port=3049,lan=null,codec=dpapi,identity=windowsSid,validateCrm,identityRead,worker}={}){
  if(!Number.isInteger(port)||port<1024||port>65535)throw failure('پورت معتبر نیست.')
  if(lan && (!isIPv4(lan.address) || !lan.pfx || !lan.passphrase))throw failure('تنظیم میزبان امن شبکه معتبر نیست.')
  const address=lan?.address||'127.0.0.1'
