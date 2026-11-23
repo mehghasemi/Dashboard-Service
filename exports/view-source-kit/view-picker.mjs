@@ -1,0 +1,17 @@
+export function mountViewPicker(root,{apiBase='/api/view-sources',modules=[{id:'planning',label:'Planning',mainEntity:'incident'},{id:'backlogs',label:'Backlogs',mainEntity:'incident'},{id:'projects',label:'Projects',mainEntity:'brd_project'}]}={}){
+ const el=document.querySelector(root);if(!el)throw Error('Root element missing');
+ const request=async(path,body)=>{const response=await fetch(apiBase+path,{credentials:'same-origin',cache:'no-store',...(body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})});const value=await response.json();if(!response.ok)throw Error(value.error||'Request failed');return value};
+ const label=(text,control)=>{const wrap=document.createElement('label');wrap.textContent=text;wrap.append(control);return wrap};
+ const select=(items,selected,placeholder)=>{const input=document.createElement('select');input.add(new Option(placeholder,''));for(const item of items){const option=new Option(item.name+' - '+(item.kind==='userqueries'?'personal':'public'),item.kind+':'+item.id);input.add(option)}input.value=selected?.kind+':'+selected?.id;return input};
+ const viewFor=(value,items)=>items.find(v=>v.kind+':'+v.id===value);
+ async function render(){el.replaceChildren();const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Loading Views...';el.append(status);try{
+  const [{views},current]=await Promise.all([request('/catalog'),request('/settings')]);status.textContent=views.length+' Views available';
+  const refresh=document.createElement('button');refresh.type='button';refresh.textContent='Refresh Views';refresh.onclick=()=>render().catch(e=>status.textContent=e.message);el.append(refresh);
+  for(const module of modules){const values=current.settings?.[module.id]||{views:{},auto:false,interval:60};const form=document.createElement('form');form.dir='rtl';const title=document.createElement('h2');title.textContent=module.label;form.append(title);const slots={};
+   for(const [slot,title,allowed] of [['main','Main View',[module.mainEntity]],['notes','Notes View',['annotation']],['activities','Activities View',['task','activitypointer']]]){const items=views.filter(v=>allowed.includes(v.entity));slots[slot]={input:select(items,values.views?.[slot],slot==='main'?'Choose View':'Optional'),items};form.append(label(title,slots[slot].input))}
+   const interval=document.createElement('select');for(const n of [60,120,240,480,1440])interval.add(new Option(n+' minutes',String(n)));interval.value=String(values.interval||60);form.append(label('Automatic refresh interval',interval));const auto=document.createElement('input');auto.type='checkbox';auto.checked=!!values.auto;form.append(label('Automatic refresh',auto));
+   const save=document.createElement('button');save.type='submit';save.textContent='Save source';form.append(save);const note=document.createElement('p');note.setAttribute('role','status');form.append(note);
+   form.onsubmit=async event=>{event.preventDefault();try{const selected={};for(const [slot,{input,items}] of Object.entries(slots)){if(input.value)selected[slot]=viewFor(input.value,items)}if(!selected.main)throw Error('Choose a main View');const saved=await request('/settings',{module:module.id,views:selected,auto:auto.checked,interval:Number(interval.value),revision:current.revision});current.revision=saved.revision;note.textContent='Saved';}catch(e){note.textContent=e.message}};el.append(form)}
+ }catch(e){status.textContent=e.message}}
+ void render();return {refresh:render}
+}
